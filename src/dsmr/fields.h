@@ -34,13 +34,13 @@
 #include "parser.h"
 
 #ifndef DSMR_GAS_MBUS_ID
-#define DSMR_GAS_MBUS_ID 1
+#define DSMR_GAS_MBUS_ID 3
 #endif
 #ifndef DSMR_WATER_MBUS_ID
 #define DSMR_WATER_MBUS_ID 2
 #endif
 #ifndef DSMR_THERMAL_MBUS_ID
-#define DSMR_THERMAL_MBUS_ID 3
+#define DSMR_THERMAL_MBUS_ID 1
 #endif
 #ifndef DSMR_SUB_MBUS_ID
 #define DSMR_SUB_MBUS_ID 4

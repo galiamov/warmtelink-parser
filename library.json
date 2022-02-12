@@ -1,11 +1,11 @@
 {
   "name": "Dsmr",
-  "version": "0.5",
+  "version": "0.1",
   "description": "Parser and utilities for Dutch Smart Meters (Implementing DSMR)",
   "keywords": "dsmr",
   "repository": {
     "type": "git",
-    "url": "https://github.com/glmnet/arduino-dsmr.git"
+    "url": "https://github.com/galiamov/warmtelink-parser.git"
   },
   "license": "MIT",
   "exclude": ["specs/"]
