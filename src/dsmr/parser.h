@@ -32,25 +32,6 @@
 
 #include "crc16.h"
 #include "util.h"
-#include "regex.h"
-
-/** The first identification line looks like:
-* XXX5<id string>
-* The DSMR spec is vague on details, but in 62056-21, the X's
-* are a three-leter (registerd) manufacturer ID, the id
-* string is up to 16 chars of arbitrary characters and the
-* '5' is a baud rate indication. 5 apparently means 9600,
-* which DSMR 3.x and below used. It seems that DSMR 2.x
-* passed '3' here (which is mandatory for "mode D"
-* communication according to 62956-21), so we also allow
-* that.
-* The 'WARMTELINK' is added to support vattenfall warmtelink.
-* See: https://www.vattenfall.nl/producten/stadsverwarming/warmtelink/
-* The identification like for the device looks like: "NWB-WARMTELINK" 
-*/
-#ifndef DSMR_IDENTIFICATION_REGEX
-#define DSMR_IDENTIFICATION_REGEX "...[3,5].*|.*-WARMTELINK"
-#endif
 
 namespace dsmr
 {
@@ -414,13 +395,18 @@ namespace dsmr
       {
         if (*line_end == '\r' || *line_end == '\n')
         {
-          regex_t regex;
-          int return_value;
-          return_value = regcomp(&regex, DSMR_IDENTIFICATION_REGEX, REG_EXTENDED);
-          return_value = regexec(&regex, line_start, 0, NULL, 0);
-          if (return_value != 0)
+          // The first identification line looks like:
+          // XXX5<id string>
+          // The DSMR spec is vague on details, but in 62056-21, the X's
+          // are a three-leter (registerd) manufacturer ID, the id
+          // string is up to 16 chars of arbitrary characters and the
+          // '5' is a baud rate indication. 5 apparently means 9600,
+          // which DSMR 3.x and below used. It seems that DSMR 2.x
+          // passed '3' here (which is mandatory for "mode D"
+          // communication according to 62956-21), so we also allow
+          // that.
+          if (line_start + 3 >= line_end || (line_start[3] != '5' && line_start[3] != '3'))
             return res.fail("Invalid identification string", line_start);
-          regfree(&regex);
           // Offer it for processing using the all-ones Obis ID, which
           // is not otherwise valid.
           ParseResult<void> tmp = data->parse_line(ObisId(255, 255, 255, 255, 255, 255), line_start, line_end);

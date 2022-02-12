@@ -1,6 +1,6 @@
 {
   "name": "Dsmr",
-  "version": "0.7",
+  "version": "0.5",
   "description": "Parser and utilities for Dutch Smart Meters (Implementing DSMR)",
   "keywords": "dsmr",
   "repository": {
