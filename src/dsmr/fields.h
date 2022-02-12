@@ -181,7 +181,6 @@ namespace dsmr
     };
 
     const uint8_t THERMAL_MBUS_ID = DSMR_THERMAL_MBUS_ID;
-    const uint8_t SUB_MBUS_ID = DSMR_SUB_MBUS_ID;
 
 #define DEFINE_FIELD(fieldname, value_t, obis, field_t, field_args...) \
   struct fieldname : field_t<fieldname, ##field_args>                  \
